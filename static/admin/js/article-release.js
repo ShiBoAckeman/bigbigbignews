@@ -1,3 +1,13 @@
+//请求所有文章类别
+$.ajax({
+    type: 'get',
+    url: 'http://localhost:8080/api/v1/admin/category/list',
+    success: function (response) {
+        console.log(response)
+        var html = template('releaseTpl', response)
+        $('#article_category').html(html)
+    }
+})
 //给文件控件注册change事件
 $('#exampleInputFile').on('change', function () {
     var file = this.files[0]

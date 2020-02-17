@@ -1,3 +1,15 @@
+<script src="js/jquery-1.12.4.min.js"></script>
+<script>
+  $.ajax({
+    url: 'http://localhost:8080/api/v1/admin/user/status',
+    async: false,
+    error: function () {
+      alert('请先登录');
+      window.location = '/admin/login.html';
+    }
+  });
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -117,7 +129,7 @@
       </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal" id="close_modify">关闭</button>
       <button type="button" class="btn btn-primary" id="model_modify">修改</button>
     </div>
   </div>
@@ -193,6 +205,11 @@
           location.reload();
         }
       })
+    })
+
+    // 编辑时关闭按钮点击事件
+    $('#modalBox').on('click', '#close_modify', function () {
+      location.reload();
     })
 
     // 删除类别

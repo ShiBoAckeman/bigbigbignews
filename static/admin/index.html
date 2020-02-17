@@ -1,3 +1,15 @@
+<script src="js/jquery-1.12.4.min.js"></script>
+<script>
+  $.ajax({
+    url: 'http://localhost:8080/api/v1/admin/user/status',
+    async: false,
+    error: function () {
+      alert('请先登录');
+      window.location = '/admin/login.html';
+    }
+  });
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,15 +86,18 @@
   </div>
 
   <div class="header_bar">
-    <form class="search_form">
-      <input type="text" placeholder="请输入搜索内容" id="search" name="key">
-      <i class="iconfont icon-search"></i>
+
+    <form class="search_form" id="search_form">
+      <input type="text" placeholder="请输入搜索内容" name="key">
+      <i class="iconfont icon-search" id="inconfont"></i>
+
     </form>
 
     <div class="user_center_link">
       <a href="user.html" onclick="setMenu(3,0)" target="main_frame">个人中心</a>
       <img src="images/2.jpg" alt="person">
-      <a href="#"><i class="iconfont icon-tuichu"></i> 退出</a>
+      <a href="#" data-toggle="modal" data-target="#myModal"><i class="iconfont icon-tuichu"></i>退出
+      </a>
     </div>
   </div>
 
@@ -105,7 +120,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-          <button type="button" class="btn btn-primary">确定</button>
+          <button type="button" class="btn btn-primary" id="loginOut">确定</button>
         </div>
       </div>
     </div>
@@ -114,7 +129,29 @@
 
   <script src="js/jquery-1.12.4.min.js"></script>
   <script src="./js/bootstrap/js/bootstrap.min.js"></script>
-  <script src="./js/index.js"></script>
+  <<<<<<< HEAD <script src="./js/index.js">
+  </script>
+  =======
+  <script src="./js/template-web.js"></script>
+  <script type="text/html" id="searchTpl">
+
+  </script>
+  <script>
+    $('.header_bar').on('click', '#inconfont', function () {
+      var key = $('#search_form').serialize();
+      console.log(key);
+      $.ajax({
+        url: "http://localhost:8080/api/v1/admin/article/query",
+        data: key,
+        success: function (response) {
+          console.log(response);
+          // var html = template()
+        }
+      })
+    })
+
+  </script>
+  >>>>>>> 096ba19a36887d21c113daae353da32045b16ae0
   <script>
     var $level01 = $('.level01');
     var $subli = $('.level02 li')
@@ -169,7 +206,10 @@
 
   <!-- 业务逻辑代码 -->
   <script>
-
+    $('#loginOut').on('click', function () {
+      window.localStorage.removeItem('token');
+      location.href = '/admin/login.html';
+    })
   </script>
 </body>
 

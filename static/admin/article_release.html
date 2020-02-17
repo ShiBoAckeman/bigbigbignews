@@ -37,11 +37,7 @@
           <label for="inputEmail3" class="col-sm-2 control-label">文章类别：</label>
           <div class="col-sm-4">
             <select class="form-control" name="categoryId" id="article_category">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+
             </select>
           </div>
         </div>
@@ -69,8 +65,8 @@
         </div>
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-success btn-release" name="state">发布</button>
-            <button type="submit" class="btn btn-default" name="">存为草稿</button>
+            <button type="submit" class="btn btn-success btn-release" name="state" value="1">发布</button>
+            <button type="submit" class="btn btn-default" name="state" value="0">存为草稿</button>
           </div>
         </div>
       </form>
@@ -83,6 +79,11 @@
   <script src="js/tinymce/js/tinymce_setup.js"></script>
   <script src="./js/moment.js"></script>
   <script src="./js/template-web.js"></script>
+  <script type="text/html" id="releaseTpl">
+    {{each data}}
+    <option data-id={{$value.id}}>{{$value.name}}</option>
+    {{/each}}
+  </script>
   <script src="./js/article-release.js"></script>
 
   <!-- 业务逻辑代码 -->
