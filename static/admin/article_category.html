@@ -117,7 +117,7 @@
       </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal" id="close_modify">关闭</button>
       <button type="button" class="btn btn-primary" id="model_modify">修改</button>
     </div>
   </div>
@@ -193,6 +193,11 @@
           location.reload();
         }
       })
+    })
+
+    // 编辑时关闭按钮点击事件
+    $('#modalBox').on('click', '#close_modify', function () {
+      location.reload();
     })
 
     // 删除类别
