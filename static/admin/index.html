@@ -75,7 +75,7 @@
 
   <div class="header_bar">
     <form class="search_form">
-      <input type="text" placeholder="请输入搜索内容">
+      <input type="text" placeholder="请输入搜索内容" id="search" name="key">
       <i class="iconfont icon-search"></i>
     </form>
 
@@ -87,7 +87,8 @@
   </div>
 
   <div class="main" id="main_body">
-    <iframe src="main_count.html" frameborder="0" id="main_frame" name="main_frame" frameborder="0" scrolling="auto"></iframe>
+    <iframe src="main_count.html" frameborder="0" id="main_frame" name="main_frame" frameborder="0"
+      scrolling="auto"></iframe>
   </div>
 
   <!-- 模态框 -->
@@ -95,7 +96,8 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="myModalLabel">温馨提示!</h4>
         </div>
         <div class="modal-body">
@@ -112,6 +114,7 @@
 
   <script src="js/jquery-1.12.4.min.js"></script>
   <script src="./js/bootstrap/js/bootstrap.min.js"></script>
+  <script src="./js/index.js"></script>
   <script>
     var $level01 = $('.level01');
     var $subli = $('.level02 li')
