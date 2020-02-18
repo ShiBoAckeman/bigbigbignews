@@ -3,9 +3,9 @@ $.ajax({
     url: 'http://localhost:8080/api/v1/admin/article/query',
     data: {
 
-        perpage: 2
+        perpage: 20
     },
-    success: function (response) {
+    success: (response) => {
         // console.log(response)
         function creat_arr(pages) {
             let a = [];
@@ -14,16 +14,19 @@ $.ajax({
             }
             return a;
         }
-        response.pages = creat_arr(response.data.pages);
-        response.page = response.data.page;
-        console.log(response)
 
-        var hh = template('pageTpl', response)
-        $('#pageBox').html(hh);
         var res = response.data.data;
 
         var html = template('listTpl', { data: res });
         $('#listBox').html(html)
+        response.pages = creat_arr(response.data.pages);
+        // console.log(response.data.page)
+
+
+
+        var hh = template('pageTpl', response)
+        console.log(response)
+        $('#pageBox').html(hh);
     }
 })
 function changePage(page) {
@@ -32,9 +35,9 @@ function changePage(page) {
         url: 'http://localhost:8080/api/v1/admin/article/query',
         data: {
             page: page,
-            perpage: 2
+            perpage: 20
         },
-        success: function (response) {
+        success: (response) => {
             // console.log(response)
             function creat_arr(pages) {
                 let a = [];
@@ -43,17 +46,18 @@ function changePage(page) {
                 }
                 return a;
             }
-            response.pages = creat_arr(response.data.pages);
-            response.page = response.data.page;
-            console.log(response)
 
-            var hh = template('pageTpl', response)
-            $('#pageBox').html(hh);
             var res = response.data.data;
 
             var html = template('listTpl', { data: res });
             $('#listBox').html(html)
+            response.pages = creat_arr(response.data.pages);
+            // console.log(response.data.page)
+
+
+            var hh = template('pageTpl', response)
+            $('#pageBox').html(hh);
         }
     })
 }
-console.log(changePage(page))
+
