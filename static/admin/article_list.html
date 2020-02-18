@@ -52,25 +52,25 @@
             <th class="text-center" width="100">操作</th>
           </tr>
         </thead>
-        <tbody id="articleBox">
+
+        <tbody id="listBox">
+
+
+
+
+
+
+
+
 
 
         </tbody>
       </table>
 
       <div class="row text-center">
-        <ul class="pagination pagination-sm">
-          <li class="page-item first disabled"><a href="#" class="page-link">首页</a></li>
-          <li class="page-item prev disabled"><a href="#" class="page-link">上一页</a></li>
-          <li class="page-item active"><a href="#" class="page-link">1</a></li>
-          <li class="page-item"><a href="#" class="page-link">2</a></li>
-          <li class="page-item"><a href="#" class="page-link">3</a></li>
-          <li class="page-item"><a href="#" class="page-link">4</a></li>
-          <li class="page-item"><a href="#" class="page-link">5</a></li>
-          <li class="page-item"><a href="#" class="page-link">6</a></li>
-          <li class="page-item"><a href="#" class="page-link">7</a></li>
-          <li class="page-item next"><a href="#" class="page-link">下一页</a></li>
-          <li class="page-item last"><a href="#" class="page-link">尾页</a></li>
+        <ul class="pagination pagination-sm" id="pageBox">
+
+
         </ul>
       </div>
 
@@ -79,8 +79,47 @@
 
   <script src="js/jquery-1.12.4.min.js"></script>
   <script src="./js/template-web.js"></script>
+  <script type="text/html" id="listTpl">
+    {{each data}}
+    <tr>
+
+      <td>{{$value.title}}</td>
+      <td>{{$value.author}}</td>
+      <td>{{$value.category}}</td>
+      <td class="text-center">{{$value.date}}</td>
+
+
+      <td class="text-center">{{$value.state=="草稿" ? "草稿" : "已发布"}}</td>
+
+
+      <td class="text-center">
+        <a href="article_edit.html" class="btn btn-default btn-xs">编辑</a>
+        <a href="javascript:deleteTr( 1005 );" class="btn btn-danger btn-xs">删除</a>
+      </td>
+    </tr>
+    {{/each}}
+  </script>
+  <script type="text/html" id="pageTpl">
+    <li class="page-item first disabled"><a href="javascript:;" class="page-link"
+        onclick="changePage({{page=1}})">首页</a></li>
+    {{if page > 1}}
+    <li class="page-item prev disabled"><a href="javascript:;" class="page-link"
+        onclick="changePage({{page-1}})">上一页</a></li>
+    {{/if}}
+
+    {{each pages}}
+    <li class="page-item active"><a href="javascript:;" class="page-link"
+        onclick="changePage({{$value}})">{{$value}}</a></li>
+    {{/each}}
+    {{if page < pages }}
+    <li class="page-item next"><a href="javascript:;" class="page-link" onclick="changePage({{page-0+1}})">下一页</a></li>
+    {{/if}}
+    <li class="page-item last"><a href="javascript:;" class="page-link"
+        onclick="changePage({{page=pages.length}})">尾页</a></li>
+  </script>
   <script src="./js/jquery.twbsPagination.js"></script>
 
+  <script src="./js/larticle-list.js"></script>
   <script>
     // 设置左侧菜单
     $('#release_btn').click(function () {
@@ -88,25 +127,7 @@
     })
   </script>
 
-  <!-- 业务逻辑代码 -->
-  <script type="text/html" id="articleTpl">
-    {{each res}}
-    <tr>
-      <td>{{$value.title}}</td>
-      <td>{{$value.author}}</td>
-      <td>{{$value.category}}</td>
-      <td class="text-center">{{$value.date}}</td>
-      <td class="text-center">{{$value.state}}</td>
-      <td class="text-center">
-        <a href="article_edit.html?articleId={{$value.id}}" class="btn btn-default btn-xs edit"
-          data-id={{$value.id}}>编辑</a>
-        <a href="javascript:deleteTr( 1005 );" class="btn btn-danger btn-xs del" data-id={{$value.id}}>删除</a>
-      </td>
-    </tr>
-    {{/each}}
-  </script>
 
-  <script src="./js/articleList.js"></script>
 </body>
 
 </html>
