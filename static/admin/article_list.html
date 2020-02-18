@@ -93,7 +93,7 @@
 
 
       <td class="text-center">
-        <a href="javascript:;" class="btn btn-default btn-xs modify" data-id={{$value.id}}>编辑</a>
+        <a href="article_edit.html?articleId={{$value.id}}" class="btn btn-default btn-xs modify" data-id={{$value.id}}>编辑</a>
         <a href="javascript:;" class="btn btn-danger btn-xs delete" data-id={{$value.id}}>删除</a>
       </td>
     </tr>
@@ -106,13 +106,8 @@
   {{/if}}
 
     {{each pages}}
-<<<<<<< HEAD
-    <li class="page-item "><a href="javascript:;" class="page-link" 
-      onclick="changePage({{$value}})">{{$value}}</a></li>
-=======
     <li class="page-item"><a href="javascript:;" class="page-link"
         onclick="changePage({{$value}})">{{$value}}</a></li>
->>>>>>> 88465bb4419b65e164e5041b804924481d7e46d5
     {{/each}}
 {{if data.page < data.pages}}
     <li class="page-item next"><a href="javascript:;" class="page-link" onclick="changePage({{data.page-0+1}})">下一页</a></li>                                   

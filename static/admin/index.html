@@ -130,32 +130,15 @@
 
   <script src="js/jquery-1.12.4.min.js"></script>
   <script src="./js/bootstrap/js/bootstrap.min.js"></script>
-<<<<<<< HEAD
 
-=======
-  <script src="./js/index.js">
->>>>>>> 88465bb4419b65e164e5041b804924481d7e46d5
   </script>
 
   <script src="./js/template-web.js"></script>
   <script type="text/html" id="searchTpl">
 
   </script>
-  <script>
-    $('.header_bar').on('click', '#inconfont', function () {
-      var key = $('#search_form').serialize();
-      console.log(key);
-      $.ajax({
-        url: "http://localhost:8080/api/v1/admin/article/query",
-        data: key,
-        success: function (response) {
-          console.log(response);
-          // var html = template()
-        }
-      })
-    })
 
-  </script>
+
 
   <script>
     var $level01 = $('.level01');

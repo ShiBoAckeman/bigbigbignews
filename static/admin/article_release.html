@@ -16,60 +16,10 @@
 <body>
   <div class="container-fluid">
     <div class="common_title">
-      写文章
+      文章编辑
     </div>
     <div class="container-fluid common_con" id="modifyBox">
-      <form class="form-horizontal article_form" id="articleForm">
-        <div class="form-group">
-          <label for="inputEmail3" class="col-sm-2 control-label">文章标题：</label>
-          <div class="col-sm-10">
-            <input name="title" class="form-control" id="inputEmail3" placeholder="文章标题">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputPassword3" class="col-sm-2 control-label">文章封面：</label>
-          <div class="col-sm-10">
-            <img src="./images/2.jpg" style="height:120px;" alt="" id="preview">
-            <input type="file" name="cover" id="exampleInputFile">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputEmail3" class="col-sm-2 control-label">文章类别：</label>
-          <div class="col-sm-4">
-            <select class="form-control" name="categoryId" id="article_category">
 
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputEmail3" class="col-sm-2 control-label">发布时间：</label>
-          <div class="col-sm-4">
-
-            <div class="input-group">
-              <input type="text" name="date" class="form-control" placeholder="YYYY-MM-DD" id="dateinput">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="button"
-                  onclick="jeDate('#dateinput',{trigger:false,format: 'YYYY-MM-DD'})"><i
-                    class="iconfont icon-icondate"></i></button>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputEmail3" class="col-sm-2 control-label">文章内容：</label>
-          <div class="col-sm-10">
-            <textarea class="form-control" id="rich_content" placeholder="文章内容" name="content">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda fugiat illo nihil molestias ab. Laborum eius non atque, totam sapiente quae obcaecati assumenda ratione inventore pariatur maiores, qui libero delectus.
-                            </textarea>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-success btn-release" name="state" value="1">发布</button>
-            <button type="submit" class="btn btn-default" name="state" value="0">存为草稿</button>
-          </div>
-        </div>
-      </form>
     </div>
   </div>
 
@@ -77,43 +27,43 @@
   <script src="js/jedate/js/jedate.js"></script>
   <script src="js/tinymce/js/tinymce/tinymce.min.js"></script>
   <script src="js/tinymce/js/tinymce_setup.js"></script>
-  <script src="./js/moment.js"></script>
-
   <script src="./js/template-web.js"></script>
-  <script type="text/html" id="releaseTpl">
-    {{each data}}
-    <option data-id={{$value.id}}>{{$value.name}}</option>
-    {{/each}}
-  </script>
+
+  <!-- 文章修改模板代码 -->
   <script type="text/html" id="modifyTpl">
     <form class="form-horizontal article_form" id="modifyForm">
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">文章标题：</label>
         <div class="col-sm-10">
-          <input name="title" class="form-control" id="inputEmail3" placeholder="文章标题" >
+          <input name="title" class="form-control title" id="inputEmail3" value="{{title}}">
         </div>
       </div>
       <div class="form-group">
         <label for="inputPassword3" class="col-sm-2 control-label">文章封面：</label>
         <div class="col-sm-10">
-          <img src="./images/2.jpg" style="height:120px;" alt="" id="preview">
-          <input type="file" name="cover" id="exampleInputFile">
+          <img src="{{cover}}" class="article_cover" id="preview">
+          <input type="file" id="exampleInputFile">
+          <input type="hidden" name="cover" id="hiddenCover" value="cover">
         </div>
       </div>
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">文章类别：</label>
         <div class="col-sm-4">
-          <select class="form-control" name="categoryId" id="article_category">
-
+          <select class="form-control category" name="categoryId">
+            {{each categories}}
+            <option value="{{$value.id}}">{{$value.name}}
+            </option>
+            {{/each}}
           </select>
         </div>
       </div>
+
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">发布时间：</label>
         <div class="col-sm-4">
 
           <div class="input-group">
-            <input type="text" name="date" class="form-control" placeholder="YYYY-MM-DD" id="dateinput">
+            <input type="text" name="date" class="form-control" value="{{date}}" id="dateinput">
             <span class="input-group-btn">
               <button class="btn btn-default" type="button"
                 onclick="jeDate('#dateinput',{trigger:false,format: 'YYYY-MM-DD'})"><i
@@ -125,25 +75,21 @@
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">文章内容：</label>
         <div class="col-sm-10">
-          <textarea class="form-control" id="rich_content" placeholder="文章内容" name="content">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda fugiat illo nihil molestias ab. Laborum eius non atque, totam sapiente quae obcaecati assumenda ratione inventore pariatur maiores, qui libero delectus.
-                          </textarea>
+          <textarea name="content" class="form-control" id="rich_content" placeholder="文章内容">{{content}}</textarea>
         </div>
       </div>
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-success btn-release" name="state" value="1">修改</button>
-          <button type="submit" class="btn btn-default" name="state" value="0">存为草稿</button>
+          <button type="submit" class="btn btn-success btn-edit">修改</button>
         </div>
       </div>
     </form>
   </script>
-  <script src="./js/article-release.js"></script>
-  <script src="./js/article-modify.js"></script>
-  <!-- 业务逻辑代码 -->
-  <script>
 
-  </script>
+
+  <!-- 文章类别模板 -->
+
+  <script src="./js/article-modify.js"></script>
 </body>
 
 </html>
