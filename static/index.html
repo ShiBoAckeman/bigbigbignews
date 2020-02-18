@@ -110,23 +110,23 @@
 
   <!-- 热点图模板 -->
   <script type="text/html" id="focus_listTpl">
-    <li class="first">
+    <li class="first focus_pic" data-id="{{data[0].id}}">
       <a href="#"><img src="{{data[0].cover}}" alt=""></a>
       <p>{{data[0].title}}</p>
     </li>
-    <li>
+    <li data-id="{{data[1].id}}" class="focus_pic">
       <a href="#"><img src="{{data[1].cover}}" alt=""></a>
       <p>{{data[1].title}}</p>
     </li>
-    <li>
+    <li data-id="{{data[2].id}}" class="focus_pic">
       <a href="#"><img src="{{data[2].cover}}" alt=""></a>
       <p>{{data[2].title}}</p>
     </li>
-    <li>
+    <li data-id="{{data[3].id}}" class="focus_pic">
       <a href="#"><img src="{{data[3].cover}}" alt=""></a>
       <p>{{data[3].title}}</p>
     </li>
-    <li>
+    <li data-id="{{data[4].id}}" class="focus_pic"> 
       <a href="#"><img src="{{data[4].cover}}" alt=""></a>
       <p>{{data[4].title}}</p>
     </li>
@@ -148,10 +148,10 @@
     {{each data}}
     <div class="common_news_list">
       <a href="#" class="list_pic"><img src="{{$value.cover}}" alt=""></a>
-      <h4><a href="#">{{$value.title}}</a></h4>
+      <h4><a href="article.html?id={{$value.id}}">{{$value.title}}</a></h4>
       <p>{{$value.content}}</p>
       <div class="new_info">
-        <span>标签：{{$value.category}}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="fa fa-eye"></i>&nbsp;阅读( {{$value.read}}
+        <span>标签：科技&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="fa fa-eye"></i>&nbsp;阅读( {{$value.read}}
           )&nbsp;&nbsp;&nbsp;<i class="fa fa-commenting"></i>&nbsp;评论( {{$value.comments}} )</span>
         <b>发布于 {{$value.date}}</b>
       </div>
@@ -189,17 +189,11 @@
         $('#focus_listBox').html(html);
       }
     })
-
-
-    // 获取文章热门排行
-    $.ajax({
-      type: 'get',
-      url: 'http://localhost:8080/api/v1/index/rank',
-      success: function (response) {
-        // console.log(response);
-        var html = template('hotlistTpl', response);
-        $('#hotlistBox').html(html);
-      }
+    // 热点图点击事件
+    $('#focus_listBox').on('click', '.focus_pic', function () {
+      var id = $(this).attr('data-id');
+      console.log(id);
+      location.href = 'article.html?id=' + id;
     })
 
     // 获取最新资讯
@@ -211,29 +205,8 @@
         $('#commonBox').html(html);
       }
     })
-
-    // 获取最新评论
-    $.ajax({
-      type: 'get',
-      url: 'http://localhost:8080/api/v1/index/latest_comment',
-      success: function (response) {
-        // console.log(response);
-        var html = template('comment_listTpl', response);
-        $('#comment_listBox').html(html);
-      }
-    })
-
-    // 焦点关注
-    $.ajax({
-      type: 'get',
-      url: 'http://localhost:8080/api/v1/index/attention',
-      success: function (response) {
-        // console.log(response);
-        var html = template('guanzhu_listTpl', response);
-        $('#guanzhu_listBox').html(html);
-      }
-    })
   </script>
+  <script src="./js/index.js"></script>
 </body>
 
 </html>
