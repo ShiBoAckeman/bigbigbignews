@@ -4,7 +4,7 @@ $.ajax({
     url: 'http://localhost:8080/api/v1/admin/comment/search',
     data: {
 
-        perpage: 20
+        perpage: 80
     },
     success: function (response) {
         // console.log(res);
@@ -98,7 +98,7 @@ function changePage(page) {
         url: 'http://localhost:8080/api/v1/admin/comment/search',
         data: {
             page: page,
-            perpage: 20
+            perpage: 80
         },
         success: function (response) {
             console.log(res);
