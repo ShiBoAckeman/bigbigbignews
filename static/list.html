@@ -152,61 +152,20 @@
     <div class="right_con setfl">
       <div class="common_wrap">
         <h3><i class="fa fa-bar-chart"></i> 一周热门排行</h3>
-        <ul class="content_list">
-          <li><span class="first">1</span><a href="#">神奇的水滴摄影，泡泡中的世界泡泡中的世界</a></li>
-          <li><span class="second">2</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><span class="third">3</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><span>4</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><span>5</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><span>6</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><span>7</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
+        <ul class="content_list" id="hotlistBox">
+
         </ul>
       </div>
       <div class="common_wrap">
         <h3><i class="fa fa-commenting-o"></i> 最新评论</h3>
-        <ul class="content_list comment_list">
-          <li>
-            <span>山</span>
-            <b><em>山治</em> 9个月前(08-14)说:</b>
-            <strong>挺会玩的</strong>
-          </li>
-          <li>
-            <span>丽</span>
-            <b><em>丽丽</em> 9个月前(08-14)说:9个月前(08-14)说:9个月前(08-14)说:</b>
-            <strong>挺会玩的挺会玩的挺会玩的挺会玩的</strong>
-          </li>
-          <li>
-            <span>R</span>
-            <b><em>Rechael</em> 9个月前(08-14)说:</b>
-            <strong>挺会玩的</strong>
-          </li>
-          <li>
-            <span>J</span>
-            <b><em>John</em> 9个月前(08-14)说:</b>
-            <strong>挺会玩的</strong>
-          </li>
-          <li>
-            <span>段</span>
-            <b><em>段正淳</em> 9个月前(08-14)说:</b>
-            <strong>挺会玩的</strong>
-          </li>
-          <li>
-            <span>乔</span>
-            <b><em>乔峰</em> 9个月前(08-14)说:</b>
-            <strong>挺会玩的</strong>
-          </li>
+        <ul class="content_list comment_list" id="comment_listBox">
+
         </ul>
       </div>
       <div class="common_wrap">
         <h3><i class="fa fa-bullseye"></i> 焦点关注</h3>
-        <ul class="content_list guanzhu_list">
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
+        <ul class="content_list guanzhu_list" id="guanzhu_listBox">
+
         </ul>
       </div>
     </div>
@@ -225,6 +184,69 @@
     <p>CopyRight © 2019 深圳大事件信息技术股份有限公司 All Rights Reserved</p>
     <p>电话：0755-****888 粤ICP备*******8号</p>
   </div>
+  <script src=".//js/template-web.js"></script>
+  <!-- 热门排行模板 -->
+  <script type="text/html" id="hotlistTpl">
+    <li><span class="first">1</span><a href="#">{{data[0].title}}</a></li>
+    <li><span class="second">2</span><a href="#">{{data[1].title}}</a></li>
+    <li><span class="third">3</span><a href="#">{{data[2].title}}</a></li>
+    <li><span>4</span><a href="#">{{data[3].title}}</a></li>
+    <li><span>5</span><a href="#">{{data[4].title}}</a></li>
+    <li><span>6</span><a href="#">{{data[5].title}}</a></li>
+    <li><span>7</span><a href="#">{{data[6].title}}</a></li>
+  </script>
+
+  <!-- 最新评论模板 -->
+  <script type="text/html" id="comment_listTpl">
+      {{each data}}
+      <li>
+        <span>{{$value.author.substr(0,1)}}</span>
+        <b><em>{{$value.author}}</em> {{$value.date}}说:</b>
+        <strong>{{$value.intro}}</strong>
+      </li>
+      {{/each}}
+    </script>
+
+
+  <!-- 关注模板 -->
+  <script type="text/html" id="guanzhu_listTpl">
+    {{each data}}
+    <li><a href="#">{{$value.intro}}</a></li>
+    {{/each}}
+  </script>
+  <script>
+    // 获取文章热门排行
+    $.ajax({
+      type: 'get',
+      url: 'http://localhost:8080/api/v1/index/rank',
+      success: function (response) {
+        // console.log(response);
+        var html = template('hotlistTpl', response);
+        $('#hotlistBox').html(html);
+      }
+    })
+    // 获取最新评论
+    $.ajax({
+      type: 'get',
+      url: 'http://localhost:8080/api/v1/index/latest_comment',
+      success: function (response) {
+        // console.log(response);
+        var html = template('comment_listTpl', response);
+        $('#comment_listBox').html(html);
+      }
+    })
+
+    // 焦点关注
+    $.ajax({
+      type: 'get',
+      url: 'http://localhost:8080/api/v1/index/attention',
+      success: function (response) {
+        // console.log(response);
+        var html = template('guanzhu_listTpl', response);
+        $('#guanzhu_listBox').html(html);
+      }
+    })
+  </script>
 
 </body>
 
