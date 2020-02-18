@@ -138,7 +138,25 @@
 
   </script>
 
+<<<<<<< HEAD
 
+=======
+  <!-- 搜索功能 -->
+  <script>
+    $('.header_bar').on('click', '#inconfont', function () {
+      var key = $('#search_form').serialize();
+      console.log(key);
+      $.ajax({
+        url: "http://localhost:8080/api/v1/admin/article/query",
+        data: key,
+        success: function (response) {
+          console.log(response);
+          // var html = template()
+        }
+      })
+    })
+  </script>
+>>>>>>> d03ace0ff3c8316d6e053efc0b42f19cab27cdfe
 
   <script>
     var $level01 = $('.level01');

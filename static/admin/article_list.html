@@ -85,8 +85,8 @@
 
       <td>{{$value.title}}</td>
       <td>{{$value.author}}</td>
-      <td>{{$value.category}}</td>                        
-      <td class="text-center">{{$value.date}}</td>            
+      <td>{{$value.category}}</td>
+      <td class="text-center">{{$value.date}}</td>
 
 
       <td class="text-center">{{$value.state=="草稿" ? "草稿" : "已发布"}}</td>
@@ -102,10 +102,12 @@
   <script type="text/html" id="pageTpl">
     <li class="page-item first "><a href="javascript:;" class="page-link" onclick="changePage({{page=1}})">首页</a></li>
     {{if data.page>1}}
-     <li class="page-item prev "><a href="javascript:;" class="page-link" onclick="changePage({{data.page-1}})">上一页</a></li>
-  {{/if}}
+    <li class="page-item prev "><a href="javascript:;" class="page-link" onclick="changePage({{data.page-1}})">上一页</a>
+    </li>
+    {{/if}}
 
     {{each pages}}
+<<<<<<< HEAD
     <li class="page-item"><a href="javascript:;" class="page-link"
         onclick="changePage({{$value}})">{{$value}}</a></li>
     {{/each}}
@@ -114,7 +116,17 @@
   {{/if}}
      <li class="page-item last"><a href="javascript:;" class="page-link" 
       onclick="changePage({{page=pages.length}})">尾页</a></li>
+=======
+    <li class="page-item "><a href="javascript:;" class="page-link" onclick="changePage({{$value}})">{{$value}}</a></li>
+>>>>>>> d03ace0ff3c8316d6e053efc0b42f19cab27cdfe
 
+    {{/each}}
+    {{if data.page < data.pages}}
+    <li class="page-item next"><a href="javascript:;" class="page-link" onclick="changePage({{data.page-0+1}})">下一页</a>
+    </li>
+    {{/if}}
+    <li class="page-item last"><a href="javascript:;" class="page-link"
+        onclick="changePage({{page=pages.length}})">尾页</a></li>
   </script>
   <script src="./js/jquery.twbsPagination.js"></script>
 

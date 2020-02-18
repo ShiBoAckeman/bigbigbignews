@@ -17,7 +17,9 @@ $.ajax({
 
         var res = response.data.data;
 
-        var html = template('listTpl', { data: res });
+        var html = template('listTpl', {
+            data: res
+        });
         $('#listBox').html(html)
         response.pages = creat_arr(response.data.pages);
         // console.log(response.data.page)
@@ -29,6 +31,7 @@ $.ajax({
         $('#pageBox').html(hh);
     }
 })
+
 function changePage(page) {
     $.ajax({
         type: 'get',
@@ -49,7 +52,9 @@ function changePage(page) {
 
             var res = response.data.data;
 
-            var html = template('listTpl', { data: res });
+            var html = template('listTpl', {
+                data: res
+            });
             $('#listBox').html(html)
             response.pages = creat_arr(response.data.pages);
             // console.log(response.data.page)
@@ -91,7 +96,9 @@ $.ajax({
         $('#pageBox').html(hh);
         var res = response.data.data;
 
-        var html = template('listTpl', { data: res });
+        var html = template('listTpl', {
+            data: res
+        });
         $('#listBox').html(html)
 
     }
@@ -113,5 +120,3 @@ $('#listBox').on('click', '.delete', function () {
         });
     }
 })
-
-
