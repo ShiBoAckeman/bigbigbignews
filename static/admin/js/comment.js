@@ -116,7 +116,7 @@ function changePage(page) {
 
 
             //渲染分页列表
-            var hh = template('pageTpl', response.data)
+            var hh = template('pageTpl', response)
             $('#pageBox').html(hh)
 
             var res = response.data.data;
