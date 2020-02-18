@@ -18,12 +18,12 @@ $.ajax({
         }
         response.pages = creat_arr(response.data.pages);
         response.page = response.data.page;
-        console.log(response)
+        // console.log(response)
 
 
         //渲染分页列表
-        var html = template('pageTpl', response)
-        $('#pageBox').html(html)
+        var hh = template('pageTpl', response)
+        $('#pageBox').html(hh)
 
         var res = response.data.data;
         //渲染评论列表
@@ -75,7 +75,7 @@ $('#commentBox').on('click', '.failed', function () {
 //评论删除功能
 $('#commentBox').on('click', '.del', function () {
     var id = $(this).attr('data-id');
-    console.log(id);
+
 
     if (confirm('确定删除么')) {
         $.ajax({
@@ -101,7 +101,7 @@ function changePage(page) {
             perpage: 80
         },
         success: function (response) {
-            console.log(res);
+            // console.log(res);
 
             function creat_arr(pages) {
                 let a = [];
@@ -116,14 +116,17 @@ function changePage(page) {
 
 
             //渲染分页列表
-            var html = template('pageTpl', response.data)
-            $('#pageBox').html(html)
+            var hh = template('pageTpl', response.data)
+            $('#pageBox').html(hh)
 
             var res = response.data.data;
             //渲染评论列表
             var html = template('commentTpl', {
                 data: res
             })
+
+
+
             $('#commentBox').html(html)
         }
 
