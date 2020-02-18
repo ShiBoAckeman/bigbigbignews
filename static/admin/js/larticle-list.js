@@ -16,16 +16,19 @@ $.ajax({
         }
         response.pages = creat_arr(response.data.pages);
         response.page = response.data.page;
-        console.log(response)
+        // console.log(response)
 
         var hh = template('pageTpl', response)
         $('#pageBox').html(hh);
         var res = response.data.data;
 
-        var html = template('listTpl', { data: res });
+        var html = template('listTpl', {
+            data: res
+        });
         $('#listBox').html(html)
     }
 })
+
 function changePage(page) {
     $.ajax({
         type: 'get',
@@ -45,15 +48,17 @@ function changePage(page) {
             }
             response.pages = creat_arr(response.data.pages);
             response.page = response.data.page;
-            console.log(response)
+            // console.log(response)
 
             var hh = template('pageTpl', response)
             $('#pageBox').html(hh);
             var res = response.data.data;
 
-            var html = template('listTpl', { data: res });
+            var html = template('listTpl', {
+                data: res
+            });
             $('#listBox').html(html)
         }
     })
 }
-console.log(changePage(page))
+// console.log(changePage(page))
