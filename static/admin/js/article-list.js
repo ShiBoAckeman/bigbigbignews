@@ -25,7 +25,7 @@ $.ajax({
 
 
         var hh = template('pageTpl', response)
-        console.log(response)
+        // console.log(response)
         $('#pageBox').html(hh);
     }
 })
@@ -60,4 +60,22 @@ function changePage(page) {
         }
     })
 }
+
+//文章删除功能
+$('#listBox').on('click', '.delete', function () {
+    if (confirm('确定删除么')) {
+        var id = $(this).attr('data-id')
+        $.ajax({
+            type: 'post',
+            data: {
+                id: id
+            },
+            url: 'http://localhost:8080/api/v1/admin/article/delete',
+            success: function (res) {
+                location.reload();
+            }
+        });
+    }
+})
+
 
