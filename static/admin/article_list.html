@@ -52,6 +52,7 @@
             <th class="text-center" width="100">操作</th>
           </tr>
         </thead>
+
         <tbody id="listBox">
 
 
@@ -99,23 +100,25 @@
     {{/each}}
   </script>
   <script type="text/html" id="pageTpl">
-    <li class="page-item first disabled"><a href="javascript:;" class="page-link" onclick="changePage({{page=1}})">首页</a></li>
+    <li class="page-item first disabled"><a href="javascript:;" class="page-link"
+        onclick="changePage({{page=1}})">首页</a></li>
     {{if page > 1}}
-     <li class="page-item prev disabled"><a href="javascript:;" class="page-link" onclick="changePage({{page-1}})">上一页</a></li>
-  {{/if}}
+    <li class="page-item prev disabled"><a href="javascript:;" class="page-link"
+        onclick="changePage({{page-1}})">上一页</a></li>
+    {{/if}}
 
     {{each pages}}
-    <li class="page-item active"><a href="javascript:;" class="page-link" 
-      onclick="changePage({{$value}})">{{$value}}</a></li>
+    <li class="page-item active"><a href="javascript:;" class="page-link"
+        onclick="changePage({{$value}})">{{$value}}</a></li>
     {{/each}}
     {{if page < pages }}
     <li class="page-item next"><a href="javascript:;" class="page-link" onclick="changePage({{page-0+1}})">下一页</a></li>
     {{/if}}
-     <li class="page-item last"><a href="javascript:;" class="page-link" 
-      onclick="changePage({{page=pages.length}})">尾页</a></li>
-
+    <li class="page-item last"><a href="javascript:;" class="page-link"
+        onclick="changePage({{page=pages.length}})">尾页</a></li>
   </script>
   <script src="./js/jquery.twbsPagination.js"></script>
+
   <script src="./js/larticle-list.js"></script>
   <script>
     // 设置左侧菜单
@@ -124,10 +127,6 @@
     })
   </script>
 
-  <!-- 业务逻辑代码 -->
-  <script>
-
-  </script>
 
 </body>
 
