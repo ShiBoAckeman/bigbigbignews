@@ -80,14 +80,14 @@
         下一篇： <a href="#">世界第一个可以玩游戏的马桶、世界上第一个可以玩游戏的茶杯</a>
       </div>
 
-      <form action="" class="comment_form">
+      <form action="" class="comment_form" id="formData">
         <div class="form_group">
           <label>用户名：</label>
-          <input type="text" placeholder="请输入用户名" class="comment_name">
+          <input type="text" placeholder="请输入用户名" class="comment_name" id="userName">
         </div>
         <div class="form_group">
           <label>评论内容：</label>
-          <textarea placeholder="请发表您的评论" class="comment_input"></textarea>
+          <textarea placeholder="请发表您的评论" class="comment_input" id="publish"></textarea>
         </div>
         <div class="form_group">
           <input type="submit" name="" value="评 论" class="comment_sub"></div>
@@ -97,9 +97,9 @@
         4条评论
       </div>
 
-      <div class="comment_list_con">
+      <div class="comment_list_con" id="commentBox">
         <div class="comment_detail_list">
-          <div class="person_pic fl">乔</div>
+          <div class="person_pic fl">竹</div>
           <div class="name_time fl"><b>虚竹</b><span>4小时前</span></div>
           <div class="comment_text fl">
             遏制茅台酒价格过快上涨，多渠道供给，就不一定要买，租茅台酒也可以的，租售同权。开发共有产权茅台酒，让老百姓喝得起茅台酒，饮者有其酒。
@@ -210,8 +210,29 @@
   <script src="./js/template-web.js"></script>
 
   <!-- 文章页面的 js 代码  -->
-  <script>
 
+
+  <script>
+    $('#formData').on('click', function () {
+      // alert('11')
+      var publish = $('#publish').val();
+      var userName = $('#userName').val();
+      console.log(publish);
+      console.log(userName);
+      $.ajax({
+        type: 'get',
+        url: 'http://localhost:8080/api/v1/index/latest_comment',
+        success: function (respones) {
+          console.log(respones);
+        }
+      });
+      return false;
+    })
+  </script>
+  <script type="html/text" id="boxTpl">
+    {{each commentBox}}
+    
+    {{/each}}
   </script>
 </body>
 
