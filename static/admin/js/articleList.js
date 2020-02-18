@@ -30,3 +30,4 @@ $('#articleBox').on('click', '.del', function () {
         });
     }
 })
+
