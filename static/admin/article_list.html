@@ -85,41 +85,46 @@
 
       <td>{{$value.title}}</td>
       <td>{{$value.author}}</td>
-      <td>{{$value.category}}</td>
-      <td class="text-center">{{$value.date}}</td>
+      <td>{{$value.category}}</td>                        
+      <td class="text-center">{{$value.date}}</td>            
 
 
       <td class="text-center">{{$value.state=="草稿" ? "草稿" : "已发布"}}</td>
 
 
       <td class="text-center">
-        <a href="article_edit.html" class="btn btn-default btn-xs">编辑</a>
-        <a href="javascript:deleteTr( 1005 );" class="btn btn-danger btn-xs">删除</a>
+        <a href="javascript:;" class="btn btn-default btn-xs modify" data-id={{$value.id}}>编辑</a>
+        <a href="javascript:;" class="btn btn-danger btn-xs delete" data-id={{$value.id}}>删除</a>
       </td>
     </tr>
     {{/each}}
   </script>
   <script type="text/html" id="pageTpl">
-    <li class="page-item first disabled"><a href="javascript:;" class="page-link"
-        onclick="changePage({{page=1}})">首页</a></li>
-    {{if page > 1}}
-    <li class="page-item prev disabled"><a href="javascript:;" class="page-link"
-        onclick="changePage({{page-1}})">上一页</a></li>
-    {{/if}}
+    <li class="page-item first "><a href="javascript:;" class="page-link" onclick="changePage({{page=1}})">首页</a></li>
+    {{if data.page>1}}
+     <li class="page-item prev "><a href="javascript:;" class="page-link" onclick="changePage({{data.page-1}})">上一页</a></li>
+  {{/if}}
 
     {{each pages}}
-    <li class="page-item active"><a href="javascript:;" class="page-link"
+<<<<<<< HEAD
+    <li class="page-item "><a href="javascript:;" class="page-link" 
+      onclick="changePage({{$value}})">{{$value}}</a></li>
+=======
+    <li class="page-item"><a href="javascript:;" class="page-link"
         onclick="changePage({{$value}})">{{$value}}</a></li>
+>>>>>>> 88465bb4419b65e164e5041b804924481d7e46d5
     {{/each}}
-    {{if page < pages }}
-    <li class="page-item next"><a href="javascript:;" class="page-link" onclick="changePage({{page-0+1}})">下一页</a></li>
-    {{/if}}
-    <li class="page-item last"><a href="javascript:;" class="page-link"
-        onclick="changePage({{page=pages.length}})">尾页</a></li>
+{{if data.page < data.pages}}
+    <li class="page-item next"><a href="javascript:;" class="page-link" onclick="changePage({{data.page-0+1}})">下一页</a></li>                                   
+  {{/if}}
+     <li class="page-item last"><a href="javascript:;" class="page-link" 
+      onclick="changePage({{page=pages.length}})">尾页</a></li>
+
   </script>
   <script src="./js/jquery.twbsPagination.js"></script>
 
-  <script src="./js/larticle-list.js"></script>
+  <script src="./js/article-list.js"></script>
+  <script src="./js/article-modify.js"></script>
   <script>
     // 设置左侧菜单
     $('#release_btn').click(function () {
