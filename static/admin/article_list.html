@@ -67,12 +67,9 @@
       </table>
 
       <div class="row text-center">
-        <ul class="pagination pagination-sm">
-          <li class="page-item first disabled"><a href="#" class="page-link">首页</a></li>
-          <li class="page-item prev disabled"><a href="#" class="page-link">上一页</a></li>
+        <ul class="pagination pagination-sm" id="pageBox">
 
-          <li class="page-item next"><a href="#" class="page-link">下一页</a></li>
-          <li class="page-item last"><a href="#" class="page-link">尾页</a></li>
+
         </ul>
       </div>
 
@@ -102,9 +99,21 @@
     {{/each}}
   </script>
   <script type="text/html" id="pageTpl">
-{{each data}}
-    <li class="page-item active"><a href="javascript:;" class="page-link">{{$value}}</a></li>
-{{/each}}
+    <li class="page-item first disabled"><a href="javascript:;" class="page-link" onclick="changePage({{page=1}})">首页</a></li>
+    {{if page > 1}}
+     <li class="page-item prev disabled"><a href="javascript:;" class="page-link" onclick="changePage({{page-1}})">上一页</a></li>
+  {{/if}}
+
+    {{each pages}}
+    <li class="page-item active"><a href="javascript:;" class="page-link" 
+      onclick="changePage({{$value}})">{{$value}}</a></li>
+    {{/each}}
+    {{if page < pages }}
+    <li class="page-item next"><a href="javascript:;" class="page-link" onclick="changePage({{page-0+1}})">下一页</a></li>
+    {{/if}}
+     <li class="page-item last"><a href="javascript:;" class="page-link" 
+      onclick="changePage({{page=pages.length}})">尾页</a></li>
+
   </script>
   <script src="./js/jquery.twbsPagination.js"></script>
   <script src="./js/larticle-list.js"></script>
