@@ -30,33 +30,13 @@
           </tr>
         </thead>
         <tbody id="commentBox">
-          <tr>
-            <td>小周</td>
-            <td>这是一条测试评论，欢迎光临</td>
-            <td>《世界，你好》</td>
-            <td>2017-07-04 12:00:00</td>
-            <td>已批准</td>
-            <td class="text-center">
-              <a href="javascript:;" class="btn btn-warning btn-xs">拒绝</a>
-              <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-            </td>
-          </tr>
+
         </tbody>
       </table>
 
       <div class="row text-center">
-        <ul class="pagination pagination-sm">
-          <li class="page-item first disabled"><a href="#" class="page-link">首页</a></li>
-          <li class="page-item prev disabled"><a href="#" class="page-link">上一页</a></li>
-          <li class="page-item active"><a href="#" class="page-link">1</a></li>
-          <li class="page-item"><a href="#" class="page-link">2</a></li>
-          <li class="page-item"><a href="#" class="page-link">3</a></li>
-          <li class="page-item"><a href="#" class="page-link">4</a></li>
-          <li class="page-item"><a href="#" class="page-link">5</a></li>
-          <li class="page-item"><a href="#" class="page-link">6</a></li>
-          <li class="page-item"><a href="#" class="page-link">7</a></li>
-          <li class="page-item next"><a href="#" class="page-link">下一页</a></li>
-          <li class="page-item last"><a href="#" class="page-link">尾页</a></li>
+        <ul class="pagination pagination-sm" id="pageBox">
+
         </ul>
       </div>
 
@@ -73,9 +53,47 @@
     })
   </script>
 
-  <!-- 业务逻辑代码 -->
-  <script>
+  <!-- 评论列表模板 -->
+  <script type="text/html" id="commentTpl">
+    {{each data}}
+    <tr>
+      <td>{{$value.author}}</td>
+      <td>{{$value.content}}</td>
+      <td>{{$value.title}}</td>
+      <td>{{$value.date}} {{$value.time}}</td>
+      <td>{{$value.state == '已拒绝' ? '已拒绝' : '待审核'}}</td>
+      <td class="text-center">
+        <a href="javascript:;"
+          class="btn btn-warning btn-xs {{$value.state == '已拒绝' ? 'failed' : 'status'}}">{{$value.state == '已拒绝' ? '已拒绝' : '待审核'}}</a>
+        <a href="javascript:;" class="btn btn-danger btn-xs del" data-id="{{$value.id}}">删除</a>
+      </td>
+    </tr>
+    {{/each}}
   </script>
+
+  <!-- 分页模板 -->
+  <script type="text/html" id="pageTpl">
+    <li class="page-item first "><a href="javascript:;" class="page-link" onclick="changePage({{page=1}})">首页</a></li>
+
+    {{if data.page > 1}}
+    <li class="page-item prev"><a href="javascript:;" class="page-link" onclick="changePage({{data.page - 1}})">上一页</a>
+    </li>
+    {{/if}}
+
+    {{each pages}}
+    <li class="page-item"><a href="javascript:;" class="page-link" onclick="changePage({{$value}})">{{$value}}</a></li>
+    {{/each}}
+
+    {{if data.page < data.pages}}
+    <li class="page-item next"><a href="javascript:;" class="page-link"
+        onclick="changePage({{data.page - 0 + 1}})">下一页</a>
+    </li>
+    {{/if}}
+
+    <li class="page-item last"><a href="javascript:;" class="page-link"
+        onclick="changePage({{page=pages.length}})">尾页</a></li>
+  </script>
+  <script src="js/comment.js"></script>
 </body>
 
 </html>
