@@ -5,7 +5,7 @@ $.ajax({
 
         perpage: 20
     },
-    success: function (response) {
+    success: (response) => {
         // console.log(response)
         function creat_arr(pages) {
             let a = [];
@@ -14,16 +14,19 @@ $.ajax({
             }
             return a;
         }
-        response.pages = creat_arr(response.data.pages);
-        response.page = response.data.page;
-        console.log(response)
 
-        var hh = template('pageTpl', response)
-        $('#pageBox').html(hh);
         var res = response.data.data;
 
         var html = template('listTpl', { data: res });
         $('#listBox').html(html)
+        response.pages = creat_arr(response.data.pages);
+        // console.log(response.data.page)
+
+
+
+        var hh = template('pageTpl', response)
+        // console.log(response)
+        $('#pageBox').html(hh);
     }
 })
 function changePage(page) {
@@ -34,7 +37,7 @@ function changePage(page) {
             page: page,
             perpage: 20
         },
-        success: function (response) {
+        success: (response) => {
             // console.log(response)
             function creat_arr(pages) {
                 let a = [];
@@ -43,16 +46,17 @@ function changePage(page) {
                 }
                 return a;
             }
-            response.pages = creat_arr(response.data.pages);
-            response.page = response.data.page;
-            console.log(response)
 
-            var hh = template('pageTpl', response)
-            $('#pageBox').html(hh);
             var res = response.data.data;
 
             var html = template('listTpl', { data: res });
             $('#listBox').html(html)
+            response.pages = creat_arr(response.data.pages);
+            // console.log(response.data.page)
+
+
+            var hh = template('pageTpl', response)
+            $('#pageBox').html(hh);
         }
     })
 }
@@ -92,3 +96,22 @@ $.ajax({
 
     }
 })
+
+//文章删除功能
+$('#listBox').on('click', '.delete', function () {
+    if (confirm('确定删除么')) {
+        var id = $(this).attr('data-id')
+        $.ajax({
+            type: 'post',
+            data: {
+                id: id
+            },
+            url: 'http://localhost:8080/api/v1/admin/article/delete',
+            success: function (res) {
+                location.reload();
+            }
+        });
+    }
+})
+
+
