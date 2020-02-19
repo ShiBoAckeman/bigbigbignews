@@ -54,9 +54,7 @@ $('#categoryBox').on('click', '.classify', function () {
         success: function (response) {
             console.log(response);
             // console.log(response.data.data[0].cover);
-            var category = {}
-            category.title = response.data.data[0].category
-            console.log(category.title);
+
             var hh = template('titleTpl', category)
             $('#articleBox #titleBox').html(hh)
 
