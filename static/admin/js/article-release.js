@@ -17,6 +17,8 @@ $('#exampleInputFile').on('change', function () {
 })
 $('#articleForm').on('submit', function () {
     var formData = new FormData(this)
+    console.log(formData);
+
     $.ajax({
         type: 'post',
         url: 'http://localhost:8080/api/v1/admin/article/publish',
@@ -24,7 +26,9 @@ $('#articleForm').on('submit', function () {
         processData: false,
         contentType: false,
         success: function (response) {
-            location.reload();
+            console.log(response);
+
+            // location.reload();
         },
         error: function (error) {
             alert('文章创建失败');
