@@ -16,7 +16,7 @@
 
 <body>
   <div class="header">
-    <a href="#" class="logo fl"><img src="images/logo.png" alt="logo"></a>
+    <a href="index.html" class="logo fl"><img src="images/logo.png" alt="logo"></a>
     <div class="search_form fl">
       <input type="text" class="search_txt" placeholder="黑洞照片">
       <button class="search_btn"><i class="fa fa-search"></i></button>
@@ -105,13 +105,13 @@
   <script src=".//js/template-web.js"></script>
   <!-- 热门排行模板 -->
   <script type="text/html" id="hotlistTpl">
-    <li><span class="first">1</span><a href="#">{{data[0].title}}</a></li>
-    <li><span class="second">2</span><a href="#">{{data[1].title}}</a></li>
-    <li><span class="third">3</span><a href="#">{{data[2].title}}</a></li>
-    <li><span>4</span><a href="#">{{data[3].title}}</a></li>
-    <li><span>5</span><a href="#">{{data[4].title}}</a></li>
-    <li><span>6</span><a href="#">{{data[5].title}}</a></li>
-    <li><span>7</span><a href="#">{{data[6].title}}</a></li>
+    <li><span class="first">1</span><a href="article.html?id={{data[0].id}}">{{data[0].title}}</a></li>
+    <li><span class="second">2</span><a href="article.html?id={{data[1].id}}">{{data[1].title}}</a></li>
+    <li><span class="third">3</span><a href="article.html?id={{data[2].id}}">{{data[2].title}}</a></li>
+    <li><span>4</span><a href="article.html?id={{data[3].id}}">{{data[3].title}}</a></li>
+    <li><span>5</span><a href="article.html?id={{data[4].id}}">{{data[4].title}}</a></li>
+    <li><span>6</span><a href="article.html?id={{data[5].id}}">{{data[5].title}}</a></li>
+    <li><span>7</span><a href="article.html?id={{data[6].id}}">{{data[6].title}}</a></li>
   </script>
 
   <!-- 最新评论模板 -->
@@ -129,7 +129,7 @@
   <!-- 关注模板 -->
   <script type="text/html" id="guanzhu_listTpl">
     {{each data}}
-    <li><a href="#">{{$value.intro}}</a></li>
+    <li><a href="article.html?id={{$value.id}}">{{$value.intro}}</a></li>
     {{/each}}
   </script>
   <!-- 文章分类模板 -->
@@ -156,7 +156,7 @@
 {{each data}}
   <div class="common_news_list">
     <a href="#" class="list_pic"><img src="{{$value.cover}}" alt=""></a>
-    <h4><a href="#">{{$value.title}} </a></h4>
+    <h4><a href="article.html?id={{$value.id}}">{{$value.title}} </a></h4>
     <p>{{$value.content}}
     </p>
     <div class="new_info">
@@ -181,8 +181,8 @@
     </div>
 {{each response}}
   <div class="common_news_list">
-    <a href="#" class="list_pic"><img src="{{$value.cover}}" alt=""></a>
-    <h4><a href="#">{{$value.title}} </a></h4>
+    <a href="javascript:;" class="list_pic"><img src="{{$value.cover}}" alt=""></a>
+    <h4><a href="article.html?id={{$value.id}}">{{$value.title}} </a></h4>
     <p>{{$value.content}}
     </p>
     <div class="new_info">

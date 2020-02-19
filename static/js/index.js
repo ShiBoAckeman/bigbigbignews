@@ -30,3 +30,15 @@ $.ajax({
         $('#guanzhu_listBox').html(html);
     }
 })
+
+//获取文章分类
+$.ajax({
+    url: 'http://localhost:8080/api/v1/index/category',
+    success: function (response) {
+        // console.log(response);
+        var html = template('categoryTpl', { data: response.data })
+        // console.log(html);
+        $('#categoryBox').html(html)
+        $('#categorysBox').html(html)
+    }
+})
