@@ -151,7 +151,7 @@
   <!-- 文章分类详情模板 -->
   <script type="text/html" id="articleTpl">
     <div class="list_title" id="titleBox">
-     
+     <h3>{{data[0].category}}</h3>
     </div>
 {{each data}}
   <div class="common_news_list">
@@ -161,7 +161,7 @@
     </p>
     <div class="new_info">
       <span>标签：{{$value.category}}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="fa fa-eye"></i>&nbsp;阅读( {{$value.read}}
-        )&nbsp;&nbsp;&nbsp;<i class="fa fa-commenting"></i>&nbsp;评论( {{$value.comment}} )</span>
+        )&nbsp;&nbsp;&nbsp;<i class="fa fa-commenting"></i>&nbsp;评论( {{$value.comments}} )</span>
       <b>发布于 {{$value.date}}</b>
     </div>
   </div>
@@ -187,7 +187,7 @@
     </p>
     <div class="new_info">
       <span>标签：{{$value.category}}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="fa fa-eye"></i>&nbsp;阅读( {{$value.read}}
-        )&nbsp;&nbsp;&nbsp;<i class="fa fa-commenting"></i>&nbsp;评论( {{$value.comment}} )</span>
+        )&nbsp;&nbsp;&nbsp;<i class="fa fa-commenting"></i>&nbsp;评论( {{$value.comments}} )</span>
       <b>发布于 {{$value.date}}</b>
     </div>
   </div>

@@ -1,5 +1,11 @@
 //文章编辑功能
 $('#listBox').on('click', '.modify', function () {
+<<<<<<< HEAD
+    // var id = $(this).attr('data-id');
+    // console.log(location.href);
+
+    // console.log(id)
+=======
     var id = $(this).attr('data-id');
     // console.log(id)
     $.ajax({
@@ -17,16 +23,10 @@ $('#listBox').on('click', '.modify', function () {
                 success: function (categories) {
                     // console.log(categories);
                     response.categories = categories.data
-                    console.log(response);
+                    // console.log(response);
 
                     var html = template('modifyTpl', response)
-                    console.log(html);
+                    // console.log(html);
+>>>>>>> 0000efd9a0709aec2a1981d11d988f17b499df27
 
-                }
-            })
-            // location.href = "http://localhost:8080/admin/article_release.html";
-            // var html = template('modifyTpl', response);
-            // console.log(html)
-        }
-    })
 })
