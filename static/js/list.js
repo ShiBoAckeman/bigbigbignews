@@ -88,27 +88,29 @@ $('#categorysBox').on('click', '.classify', function () {
     })
 })
 
-// 别的页面点击分类跳转到列表页
+// 主页 文章详情页面点击分类跳转到列表页
 //根据id获取文章分类
 var id = getUrlParams('id');
 // alert(id)
-$.ajax({
-    url: "http://localhost:8080/api/v1/index/search",
-    data: { type: id },
-    success: function (response) {
-        // console.log(response);
-        // console.log(response.data.data[0].cover);
-        var category = {}
-        category.title = response.data.data[0].category
-        // console.log(category.title);
-        var hh = template('titleTpl', category)
-        $('#articleBox #titleBox').html(hh)
+if (id != '') {
+    $.ajax({
+        url: "http://localhost:8080/api/v1/index/search",
+        data: { type: id },
+        success: function (response) {
+            // console.log(response);
+            // console.log(response.data.data[0].cover);
+            var category = {}
+            category.title = response.data.data[0].category
+            // console.log(category.title);
+            var hh = template('titleTpl', category)
+            $('#articleBox #titleBox').html(hh)
 
-        var html = template('articleTpl', { data: response.data.data })
-        // console.log(html);
-        $('#articleBox').html(html)
-    }
-})
+            var html = template('articleTpl', { data: response.data.data })
+            // console.log(html);
+            $('#articleBox').html(html)
+        }
+    })
+}
 
 function getUrlParams(name) {
     var paramsAry = location.search.substr(1).split('&');
