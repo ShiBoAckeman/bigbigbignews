@@ -87,7 +87,7 @@ $('#categorysBox').on('click', '.classify', function () {
     })
 })
 
-// 别的页面点击分类跳转到列表页
+// 主页 文章详情页面点击分类跳转到列表页
 //根据id获取文章分类
 var id = getUrlParams('id');
 // alert(id)
@@ -106,6 +106,7 @@ $.ajax({
         $('#articleBox').html(html)
     }
 })
+
 
 function getUrlParams(name) {
     var paramsAry = location.search.substr(1).split('&');
