@@ -28,8 +28,8 @@
   <div class="sider">
     <a href="#" class="logo"><img src="images/logo02.png" alt="logo"></a>
     <div class="user_info">
-      <img src="images/2.jpg" alt="person">
-      <span>欢迎&nbsp;&nbsp;李思思</span>
+      <img src="" alt="person" name="userPic">
+      <span>欢迎&nbsp;&nbsp;</span>
       <b>管理员</b>
     </div>
     <div class="menu">
@@ -138,25 +138,7 @@
 
   </script>
 
-<<<<<<< HEAD
-
-=======
   <!-- 搜索功能 -->
-  <script>
-    $('.header_bar').on('click', '#inconfont', function () {
-      var key = $('#search_form').serialize();
-      console.log(key);
-      $.ajax({
-        url: "http://localhost:8080/api/v1/admin/article/query",
-        data: key,
-        success: function (response) {
-          console.log(response);
-          // var html = template()
-        }
-      })
-    })
-  </script>
->>>>>>> d03ace0ff3c8316d6e053efc0b42f19cab27cdfe
 
   <script>
     var $level01 = $('.level01');
@@ -215,6 +197,20 @@
     $('#loginOut').on('click', function () {
       window.localStorage.removeItem('token');
       location.href = '/admin/login.html';
+    });
+    // 获取用户信息
+    $.ajax({
+      type: 'get',
+      url: 'http://localhost:8080/api/v1/admin/user/info',
+      success: function (res) {
+        console.log(res);
+        //设置图片的src属性的路径
+        $('.user_info img').attr('src', res.data.userPic);
+        //获取用户修改的用户名渲染到页面
+        $('.user_info span').html('欢迎&nbsp;&nbsp' + res.data.nickname)
+        //获取退出按钮旁图片并修改src属性
+        $('.user_center_link img').attr('src', res.data.userPic)
+      }
     })
   </script>
 </body>
