@@ -17,10 +17,10 @@ $('#listBox').on('click', '.modify', function () {
                 success: function (categories) {
                     // console.log(categories);
                     response.categories = categories.data
-                    console.log(response);
+                    // console.log(response);
 
                     var html = template('modifyTpl', response)
-                    console.log(html);
+                    // console.log(html);
 
                 }
             })
