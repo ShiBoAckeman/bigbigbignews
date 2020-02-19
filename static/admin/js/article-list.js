@@ -5,7 +5,7 @@ $.ajax({
 
         perpage: 20
     },
-    success: (response) => {
+    success: function (response) {
         // console.log(response)
         function creat_arr(pages) {
             let a = [];
@@ -68,7 +68,11 @@ function changePage(page) {
 // console.log(changePage(page))
 // console.log();
 
+<<<<<<< HEAD
 //收取地址栏里的参数
+=======
+// //收取地址栏里的参数
+>>>>>>> 0000efd9a0709aec2a1981d11d988f17b499df27
 // var key = location.href.split('?')[1]
 // console.log(key);
 // var params = key.concat('&', 'perpage=20')
@@ -76,7 +80,11 @@ function changePage(page) {
 
 // $.ajax({
 //     url: "http://localhost:8080/api/v1/admin/article/query",
+<<<<<<< HEAD
 //     data: params,
+=======
+//     // data: params,
+>>>>>>> 0000efd9a0709aec2a1981d11d988f17b499df27
 //     success: function (response) {
 //         console.log(response);
 //         // var html = template()
@@ -90,7 +98,11 @@ function changePage(page) {
 //         }
 //         response.pages = creat_arr(response.data.pages);
 //         response.page = response.data.page;
+<<<<<<< HEAD
 //         console.log(response)
+=======
+//         // console.log(response)
+>>>>>>> 0000efd9a0709aec2a1981d11d988f17b499df27
 
 //         var hh = template('pageTpl', response)
 //         $('#pageBox').html(hh);
@@ -119,4 +131,67 @@ $('#listBox').on('click', '.delete', function () {
             }
         });
     }
+})
+
+//获取文章类别
+
+$.ajax({
+    type: 'get',
+    url: 'http://localhost:8080/api/v1/admin/category/list',
+    success: function (response) {
+        // console.log(response);
+        var html = template('categoryTpl', response);
+        console.log(html)
+        $('#selCategory').html(html);
+    }
+})
+
+//查询文章分类列表
+$('#categoryForm').on('submit', function () {
+    // var data = $(this).serialize();
+    var obj = {
+        perpage: 20
+    };
+    if ($('#selCategory').val() != -1) {
+        obj.type = $('#selCategory').val()
+    }
+    if ($('#selStatus').val() != -1) {
+        obj.state = $('#selStatus').val()
+    }
+    // console.log(obj)
+    // if (obj = {}) {
+    //     obj.perpage = 20;
+    // }
+    $.ajax({
+        type: 'get',
+        url: 'http://localhost:8080/api/v1/admin/article/query',
+        data: obj,
+        success: function (response) {
+            console.log(response)
+            function creat_arr(pages) {
+                let a = [];
+                for (let i = 1; i <= pages; i++) {
+                    a.push(i)
+                }
+                return a;
+            }
+
+            var res = response.data.data;
+
+            var html = template('listTpl', {
+                data: res
+            });
+            $('#listBox').html(html)
+            response.pages = creat_arr(response.data.pages);
+            // console.log(response.data.page)
+
+
+
+            var hh = template('pageTpl', response)
+            // console.log(response)
+            $('#pageBox').html(hh);
+
+        }
+    })
+    return false;
 })
