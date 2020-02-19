@@ -30,3 +30,93 @@ $.ajax({
         $('#guanzhu_listBox').html(html);
     }
 })
+
+
+//获取文章分类
+$.ajax({
+    url: 'http://localhost:8080/api/v1/index/category',
+    success: function (response) {
+        // console.log(response);
+        var html = template('categoryTpl', { data: response.data })
+        // console.log(html);
+        $('#categoryBox').html(html)
+        $('#categorysBox').html(html)
+    }
+})
+
+//根据id获取文章分类
+$('#categoryBox').on('click', '.classify', function () {
+    var id = $(this).attr('data-id');
+    // alert(id)
+    $.ajax({
+        url: "http://localhost:8080/api/v1/index/search",
+        data: { type: id },
+        success: function (response) {
+            // console.log(response);
+            // console.log(response.data.data[0].cover);
+            var category = {}
+            category.title = response.data.data[0].category
+            // console.log(category.title);
+
+
+            var html = template('articleTpl', { data: response.data.data })
+            // console.log(html);
+            $('#articleBox').html(html)
+        }
+    })
+})
+$('#categorysBox').on('click', '.classify', function () {
+    var id = $(this).attr('data-id');
+    // alert(id)
+    $.ajax({
+        url: "http://localhost:8080/api/v1/index/search",
+        data: { type: id },
+        success: function (response) {
+            // console.log(response);
+            // console.log(response.data.data[0].cover);
+            var category = {}
+            category.title = response.data.data[0].category
+            // console.log(category.title);
+            var hh = template('titleTpl', category)
+            $('#articleBox #titleBox').html(hh)
+
+            var html = template('articleTpl', { data: response.data.data })
+            // console.log(html);
+            $('#articleBox').html(html)
+        }
+    })
+})
+
+// 主页 文章详情页面点击分类跳转到列表页
+//根据id获取文章分类
+var id = getUrlParams('id');
+// alert(id)
+$.ajax({
+    url: "http://localhost:8080/api/v1/index/search",
+    data: { type: id },
+    success: function (response) {
+        // console.log(response);
+        // console.log(response.data.data[0].cover);
+        var category = {}
+        category.title = response.data.data[0].category
+
+
+        var html = template('articleTpl', { data: response.data.data })
+        // console.log(html);
+        $('#articleBox').html(html)
+    }
+})
+
+
+function getUrlParams(name) {
+    var paramsAry = location.search.substr(1).split('&');
+    for (var i = 0; i < paramsAry.length; i++) {
+        var tmp = paramsAry[i].split('=');
+        if (tmp[0] == name) {
+            return tmp[1];
+        }
+    }
+    // 参数不存在，则返回-1
+    return -1;
+}
+$('#articleBox').on()

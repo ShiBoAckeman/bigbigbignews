@@ -13,7 +13,7 @@
 
 <body>
   <div class="header">
-    <a href="#" class="logo fl"><img src="images/logo.png" alt="logo"></a>
+    <a href="javascript:;" class="logo fl"><img src="images/logo.png" alt="logo"></a>
     <div class="search_form fl">
       <input type="text" class="search_txt" placeholder="黑洞照片">
       <button class="search_btn"><i class="fa fa-search"></i></button>
@@ -28,23 +28,12 @@
     <div class="menu">
       <div class="menu_collapse fl">
         <a href="javascript:;" class="level_one"><i class="fa fa-list-ul"></i>全部分类</a>
-        <ul class="level_two">
-          <li class="up"></li>
-          <li><a href="#">最 新</a></li>
-          <li><a href="#">科 技</a></li>
-          <li><a href="#">股 市</a></li>
-          <li><a href="#">商 品</a></li>
-          <li><a href="#">外 汇</a></li>
-          <li><a href="#">公 司</a></li>
+        <ul class="level_two" id="categoryBox">
+
         </ul>
       </div>
-      <ul class="left_menu fl">
-        <li><a href="#">最 新</a></li>
-        <li><a href="#">科 技</a></li>
-        <li><a href="#">股 市</a></li>
-        <li><a href="#">商 品</a></li>
-        <li><a href="#">外 汇</a></li>
-        <li><a href="#">公 司</a></li>
+      <ul class="left_menu fl" id="categorysBox">
+
       </ul>
       <ul class="right_menu fr">
         <li><a href="#">科技专题</a></li>
@@ -108,6 +97,21 @@
   <script src="./js/jquery-1.12.4.min.js"></script>
   <script src="./js/template-web.js"></script>
 
+  <!-- 文章分类模板 -->
+  <script type="text/html" id="categoryTpl">
+    <li class="up"></li>
+    {{each data}}
+    <li><a href="list.html?id={{$value.id}}" class="classify" data-id="{{$value.id}}">{{$value.name}}</a></li>
+    {{/each}}
+  </script>
+
+  <!-- 文章分类模板 -->
+  <script type="text/html" id="categoryTpl">
+    {{each data}}
+    <li><a href="list.html?id={{$value.id}}" class="classify" data-id="{{$value.id}}">{{$value.name}}</a></li>
+    {{/each}}
+  </script>
+
   <!-- 热点图模板 -->
   <script type="text/html" id="focus_listTpl">
     <li class="first focus_pic" data-id="{{data[0].id}}">
@@ -126,7 +130,7 @@
       <a href="#"><img src="{{data[3].cover}}" alt=""></a>
       <p>{{data[3].title}}</p>
     </li>
-    <li data-id="{{data[4].id}}" class="focus_pic"> 
+    <li data-id="{{data[4].id}}" class="focus_pic">
       <a href="#"><img src="{{data[4].cover}}" alt=""></a>
       <p>{{data[4].title}}</p>
     </li>
@@ -134,13 +138,13 @@
 
   <!-- 热门排行模板 -->
   <script type="text/html" id="hotlistTpl">
-    <li><span class="first">1</span><a href="#">{{data[0].title}}</a></li>
-    <li><span class="second">2</span><a href="#">{{data[1].title}}</a></li>
-    <li><span class="third">3</span><a href="#">{{data[2].title}}</a></li>
-    <li><span>4</span><a href="#">{{data[3].title}}</a></li>
-    <li><span>5</span><a href="#">{{data[4].title}}</a></li>
-    <li><span>6</span><a href="#">{{data[5].title}}</a></li>
-    <li><span>7</span><a href="#">{{data[6].title}}</a></li>
+    <li><span class="first">1</span><a href="article.html?id={{data[0].id}}">{{data[0].title}}</a></li>
+    <li><span class="second">2</span><a href="article.html?id={{data[1].id}}">{{data[1].title}}</a></li>
+    <li><span class="third">3</span><a href="article.html?id={{data[2].id}}">{{data[2].title}}</a></li>
+    <li><span>4</span><a href="article.html?id={{data[3].id}}">{{data[3].title}}</a></li>
+    <li><span>5</span><a href="article.html?id={{data[4].id}}">{{data[4].title}}</a></li>
+    <li><span>6</span><a href="article.html?id={{data[5].id}}">{{data[5].title}}</a></li>
+    <li><span>7</span><a href="article.html?id={{data[6].id}}">{{data[6].title}}</a></li>
   </script>
 
   <!-- 最新资讯模板 -->
@@ -173,7 +177,7 @@
   <!-- 关注模板 -->
   <script type="text/html" id="guanzhu_listTpl">
     {{each data}}
-    <li><a href="#">{{$value.intro}}</a></li>
+    <li><a href="article.html?id={{$value.id}}">{{$value.intro}}</a></li>
     {{/each}}
   </script>
 

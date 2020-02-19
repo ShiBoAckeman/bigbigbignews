@@ -31,7 +31,7 @@
 
   <!-- 文章修改模板代码 -->
   <script type="text/html" id="modifyTpl">
-    <form class="form-horizontal article_form" id="modifyForm">
+    <form class="form-horizontal article_form" data-id="{{id}}" id="modifyForm">
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">文章标题：</label>
         <div class="col-sm-10">
@@ -51,7 +51,7 @@
         <div class="col-sm-4">
           <select class="form-control category" name="categoryId">
             {{each categories}}
-            <option value="{{$value.id}}">{{$value.name}}
+            <option value="{{$value.id}}" {{$value.id == categoryId?'selected':''}}>{{$value.name}}
             </option>
             {{/each}}
           </select>
@@ -88,8 +88,8 @@
 
 
   <!-- 文章类别模板 -->
-
-
+  <script src="./js/article-edit.js"></script>
+  <script src="./js/article-modify.js"></script>
 </body>
 
 </html>

@@ -80,12 +80,18 @@
       url: 'http://localhost:8080/api/v1/admin/user/detail',
       success: function (res) {
         // console.log(res);
+        //获取用户名称
         $('input[name=username]').val(res.data.username);
+        //获取用户昵称
         $('input[name=nickname]').val(res.data.nickname);
+        //获取用户邮箱
         $('input[name=email]').val(res.data.email);
         $('input[name=username]').val(res.data.username);
+        //获取隐藏于图标
         $('#hiddenlogo').val(res.data.userPic);
-        $('#preview').attr('src', res.data.userPic)
+        //获取隐藏于图片的src地址
+        $('#preview').attr('src', res.data.userPic);
+        //获取用户密码
         $('input[name=password]').val(res.data.password);
       }
     })
@@ -99,19 +105,25 @@
     //用户信息修改功能
     $('#userForm').on('submit', function () {
       //1- 收集表单数据
-      var formData = new FormData(this);
-      //2-发送请求
-      $.ajax({
-        type: "post",
-        url: 'http://localhost:8080/api/v1/admin/user/edit',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (res) {
-          // console.log(res);
-          location.reload();
-        }
-      });
+      if (confirm('确定修改个人信息么？')) {
+        var formData = new FormData(this);
+        //2-发送请求
+        $.ajax({
+          type: "post",
+          url: 'http://localhost:8080/api/v1/admin/user/edit',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function (res) {
+            console.log(res);
+            parent.location.reload();
+          },
+          //提示修改失败
+          error: function () {
+            alert('修改失败')
+          }
+        })
+      };
       //阻止默认提交
       return false;
     })

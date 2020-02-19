@@ -13,7 +13,7 @@
 
 <body>
   <div class="header">
-    <a href="#" class="logo fl"><img src="images/logo.png" alt="logo"></a>
+    <a href="index.html" class="logo fl"><img src="images/logo.png" alt="logo"></a>
     <div class="search_form fl">
       <input type="text" class="search_txt" placeholder="黑洞照片">
       <button class="search_btn"><i class="fa fa-search"></i></button>
@@ -28,23 +28,12 @@
     <div class="menu">
       <div class="menu_collapse fl">
         <a href="javascript:;" class="level_one"><i class="fa fa-list-ul"></i>全部分类</a>
-        <ul class="level_two">
-          <li class="up"></li>
-          <li><a href="#">最 新</a></li>
-          <li><a href="#">科 技</a></li>
-          <li><a href="#">股 市</a></li>
-          <li><a href="#">商 品</a></li>
-          <li><a href="#">外 汇</a></li>
-          <li><a href="#">公 司</a></li>
+        <ul class="level_two" id="categoryBox">
+
         </ul>
       </div>
-      <ul class="left_menu fl">
-        <li><a href="#">最 新</a></li>
-        <li><a href="#">科 技</a></li>
-        <li><a href="#">股 市</a></li>
-        <li><a href="#">商 品</a></li>
-        <li><a href="#">外 汇</a></li>
-        <li><a href="#">公 司</a></li>
+      <ul class="left_menu fl" id="categorysBox">
+
       </ul>
       <ul class="right_menu fr">
         <li><a href="#">科技专题</a></li>
@@ -117,15 +106,30 @@
   <script src="./js/jquery-1.12.4.min.js"></script>
   <script src="./js/template-web.js"></script>
 
+  <!-- 文章分类模板 -->
+  <script type="text/html" id="categoryTpl">
+    <li class="up"></li>
+   {{each data}}
+   <li><a href="list.html?id={{$value.id}}" class="classify" data-id="{{$value.id}}">{{$value.name}}</a></li>
+    {{/each}}
+  </script>
+
+  <!-- 文章分类模板 -->
+  <script type="text/html" id="categoryTpl">
+    {{each data}}
+    <li><a href="list.html?id={{$value.id}}"  class="classify"  data-id="{{$value.id}}">{{$value.name}}</a></li>
+    {{/each}}
+  </script>
+
   <!-- 热门排行模板 -->
   <script type="text/html" id="hotlistTpl">
-    <li><span class="first">1</span><a href="#">{{data[0].title}}</a></li>
-    <li><span class="second">2</span><a href="#">{{data[1].title}}</a></li>
-    <li><span class="third">3</span><a href="#">{{data[2].title}}</a></li>
-    <li><span>4</span><a href="#">{{data[3].title}}</a></li>
-    <li><span>5</span><a href="#">{{data[4].title}}</a></li>
-    <li><span>6</span><a href="#">{{data[5].title}}</a></li>
-    <li><span>7</span><a href="#">{{data[6].title}}</a></li>
+    <li><span class="first">1</span><a href="article.html?id={{data[0].id}}">{{data[0].title}}</a></li>
+    <li><span class="second">2</span><a href="article.html?id={{data[1].id}}">{{data[1].title}}</a></li>
+    <li><span class="third">3</span><a href="article.html?id={{data[2].id}}">{{data[2].title}}</a></li>
+    <li><span>4</span><a href="article.html?id={{data[3].id}}">{{data[3].title}}</a></li>
+    <li><span>5</span><a href="article.html?id={{data[4].id}}">{{data[4].title}}</a></li>
+    <li><span>6</span><a href="article.html?id={{data[5].id}}">{{data[5].title}}</a></li>
+    <li><span>7</span><a href="article.html?id={{data[6].id}}">{{data[6].title}}</a></li>
   </script>
 
   <!-- 最新评论模板 -->
@@ -142,7 +146,7 @@
   <!-- 关注模板 -->
   <script type="text/html" id="guanzhu_listTpl">
     {{each data}}
-    <li><a href="#">{{$value.intro}}</a></li>
+    <li><a href="article.html?id={{$value.id}}">{{$value.intro}}</a></li>
     {{/each}}
   </script>
 
@@ -203,19 +207,36 @@
 
     // 发表评论
     $('#comment_btn').on('click', function () {
-      var formData = $('#formData').serialize();
-      var aId = 'articleId=' + id;
-      var data = formData.concat('&', aId);
-      $.ajax({
-        type: 'post',
-        url: 'http://localhost:8080/api/v1/index/post_comment',
-        data: data,
-        success: function (response) {
-          // console.log(response);
-          location.reload();
-        }
-      });
+      if ($('#author').val().trim().length == 0 || $('#content').val().trim().length == 0) {
+        alert('请输入内容');
+      } else {
+        var formData = $('#formData').serialize();
+        var aId = 'articleId=' + id;
+        var data = formData.concat('&', aId);
+        $.ajax({
+          type: 'post',
+          url: 'http://localhost:8080/api/v1/index/post_comment',
+          data: data,
+          success: function (response) {
+            // console.log(response);
+            alert(response.msg);
+            location.reload();
+          }
+        });
+      }
       return false;
+    })
+
+    //获取文章分类
+    $.ajax({
+      url: 'http://localhost:8080/api/v1/index/category',
+      success: function (response) {
+        // console.log(response);
+        var html = template('categoryTpl', { data: response.data })
+        // console.log(html);
+        $('#categoryBox').html(html)
+        $('#categorysBox').html(html)
+      }
     })
 
     // 获取文章评论
