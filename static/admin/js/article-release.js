@@ -3,20 +3,41 @@ $.ajax({
     type: 'get',
     url: 'http://localhost:8080/api/v1/admin/category/list',
     success: function (response) {
-        console.log(response)
-        var html = template('releaseTpl', response)
+        // console.log(response)
+        var html = template('releaseTpl', {
+            data: response.data
+        })
         $('#article_category').html(html)
     }
 })
 //给文件控件注册change事件
+
 $('#exampleInputFile').on('change', function () {
-    var file = this.files[0]
-    var imgURL = URL.createObjectURL(file)
+    var file = this.files[0];
+
+    var imgURL = URL.createObjectURL(file);
     //设置img的src属性
-    $('#preview').prop('src', imgURL)
+    $('#preview').prop('src', imgURL);
+    $('#hiddenCover').val(imgURL);
+    // console.log($('#hiddenCover').val());
+
 })
-$('#articleForm').on('submit', function () {
+
+
+$('#addForm').on('submit', function () {
+
+    var code = $(this).find('.code').attr('data-id');
     var formData = new FormData(this)
+    if (code == 1) {
+        formData.append('state', '已发布');
+    } else {
+        formData.append('state', '草稿');
+    }
+    var text = tinymce.activeEditor.getContent();
+
+    formData.append('content', text);
+
+
     $.ajax({
         type: 'post',
         url: 'http://localhost:8080/api/v1/admin/article/publish',
@@ -24,12 +45,16 @@ $('#articleForm').on('submit', function () {
         processData: false,
         contentType: false,
         success: function (response) {
-            location.reload();
+            alert('提交成功');
+            location.href = 'article_list.html';
+
         },
-        error: function (error) {
-            alert('文章创建失败');
+        error: function (response) {
+            alert('提交失败');
         }
     })
-    //阻止表单默认提交行为
+
+
+    // 阻止表单默认提交行为
     return false;
 })
