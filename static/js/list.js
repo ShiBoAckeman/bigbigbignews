@@ -30,3 +30,41 @@ $.ajax({
         $('#guanzhu_listBox').html(html);
     }
 })
+
+
+//获取文章分类
+$.ajax({
+    url: 'http://localhost:8080/api/v1/index/category',
+    success: function (response) {
+        // console.log(response);
+        var html = template('categoryTpl', { data: response.data })
+        // console.log(html);
+        $('#categoryBox').html(html)
+        $('#categorysBox').html(html)
+    }
+})
+
+//根据id获取文章分类
+$('#categoryBox').on('click', '.classify', function () {
+    var id = $(this).attr('data-id');
+    // alert(id)
+    $.ajax({
+        url: "http://localhost:8080/api/v1/index/search",
+        data: { type: id },
+        success: function (response) {
+            console.log(response);
+            // console.log(response.data.data[0].cover);
+            var category = {}
+            category.title = response.data.data[0].category
+            console.log(category.title);
+            var hh = template('titleTpl', category)
+            $('#articleBox #titleBox').html(hh)
+
+            var html = template('articleTpl', { data: response.data.data })
+            console.log(html);
+            $('#articleBox').html(html)
+        }
+    })
+})
+
+$('#articleBox').on()
