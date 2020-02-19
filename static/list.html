@@ -201,9 +201,7 @@
       //     key:keys
       // },
       success: function (response) {
-        console.log(response);
-        console.log(response.data);
-        console.log(response.data.data);
+
 
         // location.href = '/list.html?key=' + keys;
         var html = template('postsTpl', { response: response.data.data });

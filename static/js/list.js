@@ -52,17 +52,25 @@ $('#categoryBox').on('click', '.classify', function () {
         url: "http://localhost:8080/api/v1/index/search",
         data: { type: id },
         success: function (response) {
-            console.log(response);
-            // console.log(response.data.data[0].cover);
-
-            var hh = template('titleTpl', category)
-            $('#articleBox #titleBox').html(hh)
 
             var html = template('articleTpl', { data: response.data.data })
-            console.log(html);
+            // console.log(html);
             $('#articleBox').html(html)
         }
     })
 })
 
-$('#articleBox').on()
+$('#categorysBox').on('click', '.classify', function () {
+    var id = $(this).attr('data-id');
+    // alert(id)
+    $.ajax({
+        url: "http://localhost:8080/api/v1/index/search",
+        data: { type: id },
+        success: function (response) {
+
+            var html = template('articleTpl', { data: response.data.data })
+            // console.log(html);
+            $('#articleBox').html(html)
+        }
+    })
+})
